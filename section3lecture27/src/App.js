@@ -11,8 +11,8 @@ class App extends Component {
     ]
   }
 
-  buttonHandler = () => {
-    const persons = this.state.persons.map(p => ({...p, age: p.age + 1}))
+  buttonHandler = age => {
+    const persons = this.state.persons.map(p => ({ ...p, age: age }))
     this.setState({ persons: persons })
   }
 
@@ -25,12 +25,15 @@ class App extends Component {
         </header>
 
         <Person person={this.state.persons[0]} />
-        <Person person={this.state.persons[1]} />
+        <Person
+          person={this.state.persons[1]}
+          click={this.buttonHandler.bind(this, 20)}
+        />
         <Person person={this.state.persons[2]}>
           I have blue eyes.
         </Person>
 
-        <button onClick={this.buttonHandler}>Do stuff!</button>
+        <button onClick={() => this.buttonHandler(10)}>Do stuff!</button>
 
       </div>
     );
