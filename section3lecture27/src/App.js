@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Person from './Person/Person'
 
 class App extends Component {
+  state = {
+    persons: [
+      { name: 'Fernando', age: 25 },
+      { name: 'Maria', age: 24 },
+      { name: 'Inês', age: 23 }
+    ]
+  }
+
+  buttonHandler = () => {
+    const persons = this.state.persons.map(p => ({...p, age: p.age + 1}))
+    this.setState({ persons: persons })
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+        <header>
+          {React.createElement('h1', { className: 'title' }, 'Welcome to React!')}
+          <p>It is working!</p>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        <Person person={this.state.persons[0]} />
+        <Person person={this.state.persons[1]} />
+        <Person person={this.state.persons[2]}>
+          I have blue eyes.
+        </Person>
+
+        <button onClick={this.buttonHandler}>Do stuff!</button>
+
       </div>
     );
   }
