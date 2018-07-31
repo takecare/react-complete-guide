@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react'
+import './Person.css'
 
 const person = (props) => {
   const age = props.person.age || Math.floor(Math.random() * 30)
   const children = props.children
+
   return (
-    <div onClick={props.click}>
+    <div className='Person' onClick={props.click}>
       <p>I'm a person, my name is {props.person.name} and I am {age} years old.</p>
       <p>{children}</p>
+      <input type="text" onChange={props.nameChanged} />
     </div>
   )
 }
