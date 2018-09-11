@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.css';
 import Person from './Person/Person'
 
 const defaultButtonStyle = {
@@ -84,21 +84,21 @@ class App extends Component {
       }
     }
 
-    const styleClasses = this.state.persons.length <= 1 ? ['red', 'bold'] : ['red']
+    const styleClasses = this.state.persons.length <= 1 ? [styles.red, styles.bold] : [styles.red]
     return (
-    <div className="App">
+      <div className={styles.App}>
 
-      <header>
-        {React.createElement('h1', { className: 'title' }, 'Welcome to React!')}
-        <p className={styleClasses.join(' ')}>It is working!</p>
-      </header>
+        <header>
+          {React.createElement('h1', { className: 'title' }, 'Welcome to React!')}
+          <p className={styleClasses.join(' ')}>It is working!</p>
+        </header>
 
-      <button key='setages' style={defaultButtonStyle} onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
-      <button key='toggle' style={togglePersonsButtonStyle} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <button key='setages' style={defaultButtonStyle} onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
+        <button key='toggle' style={togglePersonsButtonStyle} onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
-      {persons}
+        {persons}
 
-      </div>
+        </div>
     );
   }
 }
