@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium, { StyleRoot } from 'radium'
 import Person from './Person/Person'
 
 const defaultButtonStyle = {
@@ -10,11 +9,7 @@ const defaultButtonStyle = {
   border: '1px solid #ddd',
   padding: '8px',
   margin: '5px',
-  curor: 'pointer',
-  ':hover': {
-    backgroundColor: 'lightgreen',
-    color: 'black'
-  }
+  curor: 'pointer'
 }
 
 class App extends Component {
@@ -86,32 +81,26 @@ class App extends Component {
       togglePersonsButtonStyle = {
         ...togglePersonsButtonStyle,
         backgroundColor: 'red',
-        ':hover': {
-          backgroundColor: 'darkred',
-          color: 'white'
-        }
       }
     }
 
     const styleClasses = this.state.persons.length <= 1 ? ['red', 'bold'] : ['red']
     return (
-      <StyleRoot>
-        <div className="App">
+    <div className="App">
 
-          <header>
-            {React.createElement('h1', { className: 'title' }, 'Welcome to React!')}
-            <p className={styleClasses.join(' ')}>It is working!</p>
-          </header>
+      <header>
+        {React.createElement('h1', { className: 'title' }, 'Welcome to React!')}
+        <p className={styleClasses.join(' ')}>It is working!</p>
+      </header>
 
-          <button key='setages' style={defaultButtonStyle} onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
-          <button key='toggle' style={togglePersonsButtonStyle} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+      <button key='setages' style={defaultButtonStyle} onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
+      <button key='toggle' style={togglePersonsButtonStyle} onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
-          {persons}
+      {persons}
 
-          </div>
-        </StyleRoot>
+      </div>
     );
   }
 }
 
-export default Radium(App)
+export default App
