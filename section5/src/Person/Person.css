@@ -7,3 +7,15 @@
   padding: 16px;
   text-align: center;
 }
+
+@media (min-width: 500px) {
+  .Person {
+    width: 450px;
+  }
+}
+
+@media (max-width: 500px) {
+  .Person {
+    border: 2px solid green;
+  }
+}

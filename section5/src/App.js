@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import styles from './App.css';
 import Person from './Person/Person'
 
-const defaultButtonStyle = {
-  backgroundColor: 'green',
-  color: 'white',
-  font: 'inherit',
-  border: '1px solid #ddd',
-  padding: '8px',
-  margin: '5px',
-  curor: 'pointer'
-}
-
 class App extends Component {
   state = {
     persons: [
@@ -64,7 +54,6 @@ class App extends Component {
       >
         <button
           key={person.id}
-          style={defaultButtonStyle}
           onClick={() => this.deletePersonHandler(index)}>
             Delete
           </button>
@@ -74,7 +63,7 @@ class App extends Component {
 
   render() {
     let persons
-    let togglePersonsButtonStyle = defaultButtonStyle
+    let togglePersonsButtonStyle = styles.button
 
     if (this.state.showPersons) {
       persons = this.renderPersons()
@@ -84,7 +73,7 @@ class App extends Component {
       }
     }
 
-    const styleClasses = this.state.persons.length <= 1 ? [styles.red, styles.bold] : [styles.red]
+    const styleClasses = this.state.persons.length <= 1 ? [styles.Red, styles.bold] : [styles.Red]
     return (
       <div className={styles.App}>
 
@@ -93,7 +82,7 @@ class App extends Component {
           <p className={styleClasses.join(' ')}>It is working!</p>
         </header>
 
-        <button key='setages' style={defaultButtonStyle} onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
+        <button key='setages' onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
         <button key='toggle' style={togglePersonsButtonStyle} onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
         {persons}
