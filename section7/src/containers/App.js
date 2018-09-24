@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './App.css';
+import { Cockpit } from '../components/Cockpit/Cockpit'
 import { Persons } from '../components/Persons/Persons'
 
 class App extends Component {
@@ -11,6 +12,13 @@ class App extends Component {
     ]
   }
 
+  replacePerson(id, newPerson) {
+    const persons = this.state.persons
+    const personIndex = persons.findIndex(person => person.id === id)
+    persons.splice(personIndex, 1, newPerson)
+    this.setState({ persons: persons })
+  }
+
   changeName = (id, newName) => {
     const persons = this.state.persons
     const personIndex = persons.findIndex(person => person.id === id)
@@ -20,13 +28,13 @@ class App extends Component {
     this.setState({ persons: persons })
   }
 
-  setAllToAge = age => {
+  setAllAgesTo = age => {
     const persons = this.state.persons.map(p => ({ ...p, age: age }))
     this.setState({ persons: persons })
   }
 
   togglePersonsHandler = () => {
-    // assigning an arrow function here guarantees that 'this' points to the context of the App class,
+    // assigning/using an arrow function here guarantees that 'this' points to the context of the App class,
     // so we can reference 'this.setState()' in this click handler
     this.setState({ showPersons: !this.state.showPersons })
   }
@@ -37,36 +45,35 @@ class App extends Component {
     this.setState({ persons: persons })
   }
 
+  changeAge = (id, by) => {
+    const person = this.state.persons.find(person => person.id === id)
+    this.replacePerson(id, {...person, age: person.age + by})
+  }
+
   render() {
     let persons
-    let togglePersonsButtonStyle = styles.button
 
     if (this.state.showPersons) {
-      persons = (
+      persons =
         <Persons
           persons={this.state.persons}
           changeNameHandler={this.changeName}
           deletePersonHandler={this.deletePersonHandler}
+          decreaseAge={(id) => this.changeAge(id , -1)}
+          increaseAge={(id) => this.changeAge(id , +1)}
         />
-      )
-
-      togglePersonsButtonStyle = {
-        ...togglePersonsButtonStyle,
-        backgroundColor: 'red',
-      }
     }
 
-    const styleClasses = this.state.persons.length <= 1 ? [styles.Red, styles.bold] : [styles.Red]
     return (
       <div className={styles.App}>
 
-        <header>
-          {React.createElement('h1', { className: 'title' }, 'Welcome to React!')}
-          <p className={styleClasses.join(' ')}>It is working!</p>
-        </header>
-
-        <button key='setages' onClick={() => this.setAllToAge(10)}>Set all ages to 10</button>
-        <button key='toggle' style={togglePersonsButtonStyle} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <Cockpit
+          title={this.props.title}
+          ageChangeHandler={this.setAllAgesTo}
+          togglePersonsHandler={this.togglePersonsHandler}
+          totalNumberOfPersons={this.state.persons.length}
+          showingPersons={this.state.showPersons}
+        />
 
         {persons}
 

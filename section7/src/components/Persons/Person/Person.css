@@ -8,6 +8,14 @@
   text-align: center;
 }
 
+.Person button.increase {
+  background-color: #ccc;
+}
+
+.Person button.decrease {
+  background-color: #ccc;
+}
+
 @media (min-width: 500px) {
   .Person {
     width: 450px;

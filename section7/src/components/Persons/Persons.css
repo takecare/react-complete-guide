@@ -1,0 +1,13 @@
+.Persons button {
+  background-color: red;
+  color: white;
+  font: inherit;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.Persons button:hover {
+  background-color: darkred;
+}
