@@ -4,12 +4,24 @@ import { Cockpit } from '../components/Cockpit/Cockpit'
 import { Persons } from '../components/Persons/Persons'
 
 class App extends Component {
-  state = {
-    persons: [
-      { id: '0', name: 'Fernando', age: 25 },
-      { id: '1', name: 'Maria', age: 24 },
-      { id: '2', name: 'Inês', age: 23 }
-    ]
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      persons: [
+        { id: '0', name: 'Fernando', age: 25 },
+        { id: '1', name: 'Maria', age: 24 },
+        { id: '2', name: 'Inês', age: 23 }
+      ]
+    }
+  }
+
+  componentWillMount() {
+    console.log('> will mount App')
+  }
+
+  componentDidMount() {
+    console.log('> did mount App')
   }
 
   replacePerson(id, newPerson) {
@@ -51,8 +63,9 @@ class App extends Component {
   }
 
   render() {
-    let persons
+    console.log('> render App')
 
+    let persons
     if (this.state.showPersons) {
       persons =
         <Persons

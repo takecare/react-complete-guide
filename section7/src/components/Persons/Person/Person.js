@@ -1,21 +1,33 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styles from './Person.css'
 
-const person = (props) => {
-  const age = props.person.age || Math.floor(Math.random() * 30)
-  const children = props.children
+class Person extends Component {
 
-  return (
-    <div className={styles.Person} onClick={props.click}>
-      <p>I'm a person, my name is <span className="bold">{props.person.name}</span> and I am {age} years old.</p>
-      <p>
-        <button className={styles.decrease} onClick={props.decreaseAge}>-</button>
-        {children}
-        <button className={styles.increase} onClick={props.increaseAge}>+</button>
-      </p>
-      <input type="text" onChange={props.nameChanged} value={props.person.name} />
-    </div>
-  )
+  componentWillMount() {
+    console.log('> will mount Person')
+  }
+
+  componentDidMount() {
+    console.log('> did mount Person')
+  }
+
+  render() {
+    console.log('> render Person')
+
+    const age = this.props.person.age || Math.floor(Math.random() * 30)
+    const children = this.props.children
+    return (
+      <div className={styles.Person} onClick={this.props.click}>
+        <p>I'm a person, my name is <span className="bold">{this.props.person.name}</span> and I am {age} years old.</p>
+        <p>
+          <button className={styles.decrease} onClick={this.props.decreaseAge}>-</button>
+          {children}
+          <button className={styles.increase} onClick={this.props.increaseAge}>+</button>
+        </p>
+        <input type="text" onChange={this.props.nameChanged} value={this.props.person.name} />
+      </div>
+    )
+  }
 }
 
-export default person
+export default Person
