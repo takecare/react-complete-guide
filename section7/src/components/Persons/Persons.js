@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Person from './Person/Person'
 import styles from './Persons.css'
 
@@ -20,18 +20,33 @@ function renderPerson(index, person, changeName, deletePersonHandler, decreaseAg
   )
 }
 
-export class Persons extends Component {
+// pure components implement shouldComponentUpdate() by comparing every bit of the state object,
+// they should be used judiciously, because such comparison can be costly when not needed,
+// (e.g.if you compare changes in a parent component already you likely don't need a pure component)
+export class Persons extends PureComponent {
 
   componentWillMount() {
-    console.log('> will mount Persons')
+    console.log('[Persons] will mount Persons')
   }
 
   componentDidMount() {
-    console.log('> did mount Persons')
+    console.log('[Persons] did mount Persons')
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('[Persons] will receive props:', nextProps)
+  }
+
+  componentWillUpdate() {
+    console.log('[Persons] componentWillUpdate')
+  }
+
+  componentDidUpdate() {
+    console.log('[Persons] componentDidUpdate: can cause side effects. do not update state (triggers re-render).')
   }
 
   render() {
-    console.log('> render Persons')
+    console.log('[Persons] render Persons')
 
     return (
       <div className={styles.Persons}>

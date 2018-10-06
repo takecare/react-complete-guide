@@ -12,27 +12,33 @@ class App extends Component {
         { id: '0', name: 'Fernando', age: 25 },
         { id: '1', name: 'Maria', age: 24 },
         { id: '2', name: 'Inês', age: 23 }
-      ]
+      ],
+      showPersons: false
     }
   }
 
   componentWillMount() {
-    console.log('> will mount App')
+    console.log('[App] will mount App')
   }
 
   componentDidMount() {
-    console.log('> did mount App')
+    console.log('[App] did mount App')
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.showPersons !== nextState.showPersons
+      || this.state.persons !== nextState.persons
   }
 
   replacePerson(id, newPerson) {
-    const persons = this.state.persons
+    const persons = [...this.state.persons]
     const personIndex = persons.findIndex(person => person.id === id)
     persons.splice(personIndex, 1, newPerson)
     this.setState({ persons: persons })
   }
 
   changeName = (id, newName) => {
-    const persons = this.state.persons
+    const persons = [...this.state.persons]
     const personIndex = persons.findIndex(person => person.id === id)
     const person = persons[personIndex]
     const newPerson = { ...person, name: newName }
@@ -48,11 +54,11 @@ class App extends Component {
   togglePersonsHandler = () => {
     // assigning/using an arrow function here guarantees that 'this' points to the context of the App class,
     // so we can reference 'this.setState()' in this click handler
-    this.setState({ showPersons: !this.state.showPersons })
+    this.setState({ showPersons: !this.state.showPersons }) // react handles state merging
   }
 
   deletePersonHandler = personIndex => {
-    const persons = this.state.persons
+    const persons = [...this.state.persons]
     persons.splice(personIndex, 1)
     this.setState({ persons: persons })
   }
@@ -63,7 +69,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('> render App')
+    console.log('[App] render App')
 
     let persons
     if (this.state.showPersons) {

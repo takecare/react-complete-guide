@@ -4,15 +4,15 @@ import styles from './Person.css'
 class Person extends Component {
 
   componentWillMount() {
-    console.log('> will mount Person')
+    console.log('[Person] will mount Person')
   }
 
   componentDidMount() {
-    console.log('> did mount Person')
+    console.log('[Person] did mount Person')
   }
 
   render() {
-    console.log('> render Person')
+    console.log('[Person] render Person')
 
     const age = this.props.person.age || Math.floor(Math.random() * 30)
     const children = this.props.children
