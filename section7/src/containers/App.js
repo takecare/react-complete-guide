@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './App.css';
 import { Cockpit } from '../components/Cockpit/Cockpit'
 import { Persons } from '../components/Persons/Persons'
+import { WithClasses } from '../hoc/WithClasses'
 
 class App extends Component {
 
@@ -84,7 +85,7 @@ class App extends Component {
     }
 
     return (
-      <div className={styles.App}>
+      <WithClasses classes={styles.App}>
 
         <Cockpit
           title={this.props.title}
@@ -96,7 +97,7 @@ class App extends Component {
 
         {persons}
 
-        </div>
+        </WithClasses>
     );
   }
 }
