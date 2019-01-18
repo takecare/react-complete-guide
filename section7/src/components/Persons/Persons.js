@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Person from './Person/Person'
 import styles from './Persons.css'
+import { WithClasses } from '../../hoc/WithClasses'
 
 function renderPerson(index, person, changeName, deletePersonHandler, decreaseAge, increaseAge) {
   return (
@@ -49,7 +50,7 @@ export class Persons extends PureComponent {
     console.log('[Persons] render Persons')
 
     return (
-      <div className={styles.Persons}>
+      <WithClasses classes={styles.Persons}>
         {this.props.persons.map((person, index) => renderPerson(
           index,
           person,
@@ -58,7 +59,7 @@ export class Persons extends PureComponent {
           this.props.decreaseAge,
           this.props.increaseAge
         ))}
-      </div>
+      </WithClasses>
     )
   }
 }

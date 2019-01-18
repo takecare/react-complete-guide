@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styles from './App.css';
 import { Cockpit } from '../components/Cockpit/Cockpit'
 import { Persons } from '../components/Persons/Persons'
-import { WithClasses } from '../hoc/WithClasses'
+import Aux from '../hoc/Aux'
+import { withClass } from '../hoc/withClass'
 
 class App extends Component {
 
@@ -85,21 +86,18 @@ class App extends Component {
     }
 
     return (
-      <WithClasses classes={styles.App}>
-
-        <Cockpit
-          title={this.props.title}
-          ageChangeHandler={this.setAllAgesTo}
-          togglePersonsHandler={this.togglePersonsHandler}
-          totalNumberOfPersons={this.state.persons.length}
-          showingPersons={this.state.showPersons}
-        />
-
-        {persons}
-
-        </WithClasses>
+        <Aux>
+          <Cockpit
+            title={this.props.title}
+            ageChangeHandler={this.setAllAgesTo}
+            togglePersonsHandler={this.togglePersonsHandler}
+            totalNumberOfPersons={this.state.persons.length}
+            showingPersons={this.state.showPersons}
+          />
+          {persons}
+        </Aux>
     );
   }
 }
 
-export default App
+export default withClass(App, styles.App)

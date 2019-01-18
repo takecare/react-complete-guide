@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Person.css'
+import { withClass } from '../../../hoc/withClass'
+import { statefulWithClass } from '../../../hoc/statefulWithClass'
 
 class Person extends Component {
 
@@ -17,7 +19,7 @@ class Person extends Component {
     const age = this.props.person.age || Math.floor(Math.random() * 30)
     const children = this.props.children
     return (
-      <div className={styles.Person} onClick={this.props.click}>
+      <div onClick={this.props.click}>
         <p>I'm a person, my name is <span className="bold">{this.props.person.name}</span> and I am {age} years old.</p>
         <p>
           <button className={styles.decrease} onClick={this.props.decreaseAge}>-</button>
@@ -30,4 +32,4 @@ class Person extends Component {
   }
 }
 
-export default Person
+export default statefulWithClass(Person, styles.Person)
