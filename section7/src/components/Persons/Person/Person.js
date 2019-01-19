@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './Person.css'
 import { withClass } from '../../../hoc/withClass'
 import { statefulWithClass } from '../../../hoc/statefulWithClass'
+import PropTypes from 'prop-types';
 
 class Person extends Component {
 
@@ -29,6 +30,18 @@ class Person extends Component {
         <input type="text" onChange={this.props.nameChanged} value={this.props.person.name} />
       </div>
     )
+  }
+}
+
+Person.propTypes = {
+  click: PropTypes.func,
+  increaseAge: PropTypes.func,
+  decreaseAge: PropTypes.func,
+  person: (props, propName, componentName) => {
+    if (typeof props[propName].name !== 'string'
+      || typeof props[propName].age !== 'number') {
+      return new Error(`Invalid prop ${propName} supplied to ${componentName}.`);
+    }
   }
 }
 
