@@ -56,7 +56,7 @@ class App extends Component {
   togglePersonsHandler = () => {
     // assigning/using an arrow function here guarantees that 'this' points to the context of the App class,
     // so we can reference 'this.setState()' in this click handler
-    this.setState({ showPersons: !this.state.showPersons }) // react handles state merging
+    this.setState((previousState, props) => ({ showPersons: !previousState.showPersons })) // react handles state merging
   }
 
   deletePersonHandler = personIndex => {
