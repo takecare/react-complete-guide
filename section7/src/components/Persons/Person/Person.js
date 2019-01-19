@@ -12,6 +12,7 @@ class Person extends Component {
 
   componentDidMount() {
     console.log('[Person] did mount Person')
+    this.inputElement.focus();
   }
 
   render() {
@@ -27,7 +28,11 @@ class Person extends Component {
           {children}
           <button className={styles.increase} onClick={this.props.increaseAge}>+</button>
         </p>
-        <input type="text" onChange={this.props.nameChanged} value={this.props.person.name} />
+        <input
+          ref={(element) => { this.inputElement = element }} // add a new property - inputElement - to the Person class
+          type="text"
+          onChange={this.props.nameChanged}
+          value={this.props.person.name} />
       </div>
     )
   }
