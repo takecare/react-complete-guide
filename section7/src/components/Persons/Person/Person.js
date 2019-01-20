@@ -6,13 +6,18 @@ import PropTypes from 'prop-types';
 
 class Person extends Component {
 
+  constructor(props) {
+    super(props);
+    this.inputElement = React.createRef();
+  }
+
   componentWillMount() {
     console.log('[Person] will mount Person')
   }
 
   componentDidMount() {
     console.log('[Person] did mount Person')
-    this.inputElement.focus();
+    this.inputElement.current.focus();
   }
 
   render() {
@@ -29,7 +34,7 @@ class Person extends Component {
           <button className={styles.increase} onClick={this.props.increaseAge}>+</button>
         </p>
         <input
-          ref={(element) => { this.inputElement = element }} // add a new property - inputElement - to the Person class
+          ref={this.inputElement}
           type="text"
           onChange={this.props.nameChanged}
           value={this.props.person.name} />
