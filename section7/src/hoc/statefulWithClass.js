@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 
 export const statefulWithClass = (WrappedComponent, className) => {
-  return class StatefulWithClass extends Component {
-
+  const StatefulWithClass = class StatefulWithClass extends Component {
     componentDidMount() {
-      console.log('> mounting stateful wrapped component')
+      console.log('[statefulWithClass] ounting stateful wrapped component');
     }
 
     render() {
       return (
         <div className={className}>
-          <WrappedComponent className={className} {...this.props} />
+          <WrappedComponent className={className} ref={this.props.forwardRef} {...this.props}/>
         </div>
-      )
+      );
     }
   }
+
+  return React.forwardRef((props, ref) => {
+    return <StatefulWithClass {...props} forwardRef={ref} />;
+  })
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styles from './Person.css'
-import { withClass } from '../../../hoc/withClass'
 import { statefulWithClass } from '../../../hoc/statefulWithClass'
 import PropTypes from 'prop-types';
 
@@ -17,6 +16,9 @@ class Person extends Component {
 
   componentDidMount() {
     console.log('[Person] did mount Person')
+  }
+
+  focusInput() {
     this.inputElement.current.focus();
   }
 

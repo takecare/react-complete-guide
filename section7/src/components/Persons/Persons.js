@@ -3,14 +3,15 @@ import Person from './Person/Person'
 import styles from './Persons.css'
 import { WithClasses } from '../../hoc/WithClasses'
 
-function renderPerson(index, person, changeName, deletePersonHandler, decreaseAge, increaseAge) {
+function renderPerson(index, person, changeName, deletePersonHandler, decreaseAge, increaseAge, lastPersonRef) {
   return (
     <Person
       key={person.id}
       person={person}
       nameChanged={event => changeName(person.id, event.target.value)}
       decreaseAge={() => decreaseAge(person.id)}
-      increaseAge={() => increaseAge(person.id)}>
+      increaseAge={() => increaseAge(person.id)}
+      ref={lastPersonRef}>
       <button
         className={styles.Persons.Red}
         key={person.id}
@@ -26,12 +27,18 @@ function renderPerson(index, person, changeName, deletePersonHandler, decreaseAg
 // (e.g.if you compare changes in a parent component already you likely don't need a pure component)
 export class Persons extends PureComponent {
 
+  constructor(props) {
+    super(props);
+    this.lastPersonRef = React.createRef();
+  }
+
   componentWillMount() {
     console.log('[Persons] will mount Persons')
   }
 
   componentDidMount() {
     console.log('[Persons] did mount Persons')
+    this.lastPersonRef.current.focusInput();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,7 +64,8 @@ export class Persons extends PureComponent {
           this.props.changeNameHandler,
           this.props.deletePersonHandler,
           this.props.decreaseAge,
-          this.props.increaseAge
+          this.props.increaseAge,
+          this.lastPersonRef
         ))}
       </WithClasses>
     )
