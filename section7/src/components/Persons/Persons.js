@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Person from './Person/Person'
 import styles from './Persons.css'
 import { WithClasses } from '../../hoc/WithClasses'
+import { AuthContext } from '../../containers/App'
 
 function renderPerson(index, person, props, lastPersonRef) {
   return (
@@ -58,15 +59,22 @@ export class Persons extends PureComponent {
   render() {
     console.log('[Persons] render Persons')
 
-    return this.props.authenticated ? (
+    return (
+      // we're using the context api as a consumer here. the main downside is that this component is less reusable
+      // because it now depends on the context we're importing from the App component, instead of just depending on props
+
       <WithClasses classes={styles.Persons}>
-        {this.props.persons.map((person, index) => renderPerson(
-          index,
-          person,
-          this.props,
-          this.lastPersonRef
-        ))}
+        <AuthContext.Consumer>
+          {isAuthenticated => isAuthenticated ?
+            this.props.persons.map((person, index) => renderPerson(
+              index,
+              person,
+              this.props,
+              this.lastPersonRef
+            )) :
+            <p>Unauthorized</p>}
+        </AuthContext.Consumer>
       </WithClasses>
-    ) : (<p>Unauthorized</p>)
+    )
   }
 }

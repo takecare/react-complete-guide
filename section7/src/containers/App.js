@@ -5,6 +5,8 @@ import { Persons } from '../components/Persons/Persons'
 import Aux from '../hoc/Aux'
 import { withClass } from '../hoc/withClass'
 
+export const AuthContext = React.createContext(false);
+
 class App extends Component {
 
   constructor(props) {
@@ -94,18 +96,20 @@ class App extends Component {
     }
 
     return (
-        <Aux>
-          <Cockpit
-            title={this.props.title}
-            ageChangeHandler={this.setAllAgesTo}
-            loginHandler={this.handleLogin}
-            togglePersonsHandler={this.togglePersonsHandler}
-            totalNumberOfPersons={this.state.persons.length}
-            showingPersons={this.state.showPersons}
-            authenticated={this.state.isAuthenticated}
-          />
+      <Aux>
+        <Cockpit
+          title={this.props.title}
+          ageChangeHandler={this.setAllAgesTo}
+          loginHandler={this.handleLogin}
+          togglePersonsHandler={this.togglePersonsHandler}
+          totalNumberOfPersons={this.state.persons.length}
+          showingPersons={this.state.showPersons}
+          authenticated={this.state.isAuthenticated}
+        />
+        <AuthContext.Provider value={this.state.isAuthenticated}>
           {persons}
-        </Aux>
+        </AuthContext.Provider>
+      </Aux>
     );
   }
 }
