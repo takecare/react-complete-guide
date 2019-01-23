@@ -48,8 +48,18 @@ export class Persons extends PureComponent {
     console.log('[Persons] will receive props:', nextProps)
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(nextProps, previousState) {
     console.log('[Persons] componentWillUpdate')
+  }
+
+  static getDerivedStateFromProps(nextProps, previousState) { // should be used instead of 'componentWillUpdate'
+    console.log('[Persons] getDerivedStateFromProps');
+    return previousState;
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log('[Persons] getSnapshotBeforeUpdate');
+    return null;
   }
 
   componentDidUpdate() {
