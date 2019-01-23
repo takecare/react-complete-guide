@@ -15,6 +15,7 @@ class App extends Component {
         { id: '1', name: 'Maria', age: 24 },
         { id: '2', name: 'Inês', age: 23 }
       ],
+      isAuthenticated: false,
       showPersons: false
     }
   }
@@ -30,6 +31,7 @@ class App extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.showPersons !== nextState.showPersons
       || this.state.persons !== nextState.persons
+      || this.state.isAuthenticated !== nextState.isAuthenticated
   }
 
   replacePerson(id, newPerson) {
@@ -46,6 +48,11 @@ class App extends Component {
     const newPerson = { ...person, name: newName }
     persons.splice(personIndex, 1, newPerson)
     this.setState({ persons: persons })
+  }
+
+  handleLogin = () => {
+    //this.setState({ isAuthenticated: true });
+    this.setState((previousState, props) => ({ isAuthenticated: !previousState.isAuthenticated }))
   }
 
   setAllAgesTo = age => {
@@ -81,7 +88,8 @@ class App extends Component {
           changeNameHandler={this.changeName}
           deletePersonHandler={this.deletePersonHandler}
           decreaseAge={(id) => this.changeAge(id , -1)}
-          increaseAge={(id) => this.changeAge(id , +1)}
+          increaseAge={(id) => this.changeAge(id, +1)}
+          authenticated={this.state.isAuthenticated}
         />
     }
 
@@ -90,9 +98,11 @@ class App extends Component {
           <Cockpit
             title={this.props.title}
             ageChangeHandler={this.setAllAgesTo}
+            loginHandler={this.handleLogin}
             togglePersonsHandler={this.togglePersonsHandler}
             totalNumberOfPersons={this.state.persons.length}
             showingPersons={this.state.showPersons}
+            authenticated={this.state.isAuthenticated}
           />
           {persons}
         </Aux>

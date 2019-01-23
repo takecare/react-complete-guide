@@ -3,23 +3,23 @@ import Person from './Person/Person'
 import styles from './Persons.css'
 import { WithClasses } from '../../hoc/WithClasses'
 
-function renderPerson(index, person, changeName, deletePersonHandler, decreaseAge, increaseAge, lastPersonRef) {
+function renderPerson(index, person, props, lastPersonRef) {
   return (
     <Person
       key={person.id}
       person={person}
-      nameChanged={event => changeName(person.id, event.target.value)}
-      decreaseAge={() => decreaseAge(person.id)}
-      increaseAge={() => increaseAge(person.id)}
+      nameChanged={event => props.changeName(person.id, event.target.value)}
+      decreaseAge={() => props.decreaseAge(person.id)}
+      increaseAge={() => props.increaseAge(person.id)}
       ref={lastPersonRef}>
       <button
         className={styles.Persons.Red}
         key={person.id}
-        onClick={() => deletePersonHandler(index)}>
+        onClick={() => props.deletePersonHandler(index)}>
         Delete
       </button>
     </Person>
-  )
+  );
 }
 
 // pure components implement shouldComponentUpdate() by comparing every bit of the state object,
@@ -38,7 +38,9 @@ export class Persons extends PureComponent {
 
   componentDidMount() {
     console.log('[Persons] did mount Persons')
-    this.lastPersonRef.current.focusInput();
+    if (this.props.isAuthenticated) {
+      this.lastPersonRef.current.focusInput();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,18 +58,15 @@ export class Persons extends PureComponent {
   render() {
     console.log('[Persons] render Persons')
 
-    return (
+    return this.props.authenticated ? (
       <WithClasses classes={styles.Persons}>
         {this.props.persons.map((person, index) => renderPerson(
           index,
           person,
-          this.props.changeNameHandler,
-          this.props.deletePersonHandler,
-          this.props.decreaseAge,
-          this.props.increaseAge,
+          this.props,
           this.lastPersonRef
         ))}
       </WithClasses>
-    )
+    ) : (<p>Unauthorized</p>)
   }
 }
