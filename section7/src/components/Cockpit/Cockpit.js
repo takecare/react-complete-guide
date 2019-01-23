@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Cockpit.css';
 import Aux from '../../hoc/Aux'
 
-export const Cockpit = function (props) { // functional component: does not have state and no way to manage lifecycle
+const Cockpit = React.memo(function (props) { // functional component: does not have state and no way to manage lifecycle
   const textStyle = props.totalNumberOfPersons <= 1 ? [styles.red, styles.bold].join(' ') : [styles.red];
   const toggleButtonStyle = [styles.CockpitButton, props.showingPersons ? styles.Red : ['']].join(' ');
   const authButtonStyle = props.authenticated ? styles.CockpitButton : styles.Button;
@@ -19,4 +19,6 @@ export const Cockpit = function (props) { // functional component: does not have
       <button className={toggleButtonStyle} onClick={props.togglePersonsHandler}>Toggle Persons</button>
     </Aux>
   )
-}
+})
+
+export { Cockpit };
